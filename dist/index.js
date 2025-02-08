@@ -52,12 +52,36 @@ const prisma = new client_1.PrismaClient();
 //     console.log(res)
 // }
 // deleteUser("basic4@gmail.com")
-function getUser(email) {
+// async function getUser(email:string){
+//     const res =await prisma.user.findFirst({
+//         where:{email:email}
+//     })
+//     console.log(res)
+// }
+// getUser("basic@gmail.com")
+// async function createTodo(){
+//     const res = await prisma.todos.create({
+//         data:{
+//             title:"new Todos",
+//             description:"Learn prisma with postgres with updated syntax",
+//             userId:2
+//         }
+//     })
+//     console.log(res)
+// }
+// createTodo()
+function getTodo(userId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const res = yield prisma.user.findFirst({
-            where: { email: email }
+        const res = yield prisma.todos.findMany({
+            where: { userId: userId },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                user: true
+            }
         });
         console.log(res);
     });
 }
-getUser("basic@gmail.com");
+getTodo(1);
